@@ -1,0 +1,9 @@
+build
+build_wasm
+
+# Workspace
+.vscode
+.clang-tidy
+.clang-format
+
+*.log
