@@ -11,8 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add CMake modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/sdl2")
 
-# Add source files from ./source
-file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/source/*.cpp")
+# Add source files from ./src
+file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
 
 # Create the executable target
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -29,3 +29,9 @@ elseif (UNIX)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIBRARIES} pthread)
     target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_INCLUDE_DIRS})
 endif()
+
+# Link MGL
+target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/MGL/lib/libMGL.a)
+
+# Include libraries in ./libs
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs)
