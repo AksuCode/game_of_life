@@ -9,4 +9,8 @@ if [ -d "$DIRECTORY" ]; then
 fi
 mkdir "$DIRECTORY"
 cd "$DIRECTORY"
-emcc -o index.html -s USE_SDL=2 ../source/*.cpp
+### The static library needs to be created using emar to make it compatible with emcc
+emcc -I ../libs/MGL/include -c ../libs/MGL/src/*.cpp
+emar rcs libMGL.a ./*.o
+###
+emcc ../src/*.cpp -I ../src -L . -lMGL -I ../libs -s USE_SDL=2 -o index.html
