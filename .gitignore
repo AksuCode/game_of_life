@@ -1,9 +1,8 @@
 build
 build_wasm
 
+log
+*.log
+
 # Workspace
 .vscode
-.clang-tidy
-.clang-format
-
-*.log

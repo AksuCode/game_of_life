@@ -8,7 +8,7 @@
 
 class Window {
  public:
-  Window(const char *window_title);
+  Window(const char *window_title, SDL_LogOutputFunction logOutputFunction);
 
   ~Window();
 

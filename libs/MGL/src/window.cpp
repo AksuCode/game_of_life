@@ -1,19 +1,6 @@
 #include "../include/window.hpp"
 
-void log_to_file(void *userdata, int category, SDL_LogPriority priority, const char *message) {
-  FILE *logFile = fopen("./log/SDL_log.log", "a");
-  if (logFile) {
-    fprintf(logFile, "[%d] %s\n", priority, message);
-    fflush(logFile);  // Ensure data is written
-    fclose(logFile);
-  } else {
-    std::cerr << "SDL_log.log file failed to open for write." << std::endl;
-    std::cerr << "Perhaps ./log directory missing." << std::endl;
-    exit(-1);
-  }
-}
-
-Window::Window(const char *window_title): window(nullptr), renderer(nullptr), window_width(0), window_heigth(0) {
+Window::Window(const char *window_title, SDL_LogOutputFunction logOutputFunction): window(nullptr), renderer(nullptr), window_width(0), window_heigth(0) {
   // Initialize SDL library
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Video initialization error: %s\n", SDL_GetError());
@@ -23,7 +10,7 @@ Window::Window(const char *window_title): window(nullptr), renderer(nullptr), wi
   this->window_title = window_title;
 
   // Configure logging
-  SDL_LogSetOutputFunction(log_to_file, NULL);
+  SDL_LogSetOutputFunction(logOutputFunction, NULL);
   SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
 }
 
