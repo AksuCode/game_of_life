@@ -1,84 +1,14 @@
-#include <SDL2/SDL.h>
-
 #include <chrono>
 #include <iostream>
 #include <vector>
 
 #include "MGL/include/window.hpp"
+#include "MGL/include/gamestatehandler.hpp"
 
 // If compilation is done with emscripten
 #ifdef __EMSCRIPTEN__
 #include "emscripten.h"
 #endif
-
-class GameStateHandler {
- public:
-  GameStateHandler() {}
-
-  void pollUserInput() {
-    while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_QUIT) {
-        running_ = false;
-      }
-      if (event.type == SDL_KEYDOWN) {
-        if (event.key.keysym.sym == SDLK_p) {
-          pause_ = !pause_;
-        }
-        if (event.key.keysym.sym == SDLK_r) {
-          restart_ = !restart_;
-        }
-        if (event.key.keysym.sym == SDLK_RIGHT) {
-          if (50 < delay_) {
-            delay_ -= delay_increment_;
-          }
-        }
-        if (event.key.keysym.sym == SDLK_LEFT) {
-          if (delay_ < 1000) {
-            delay_ += delay_increment_;
-          }
-        }
-      }
-      if (event.type == SDL_MOUSEMOTION) {
-        mouse_pos_x_ = event.motion.x;
-        mouse_pos_y_ = event.motion.y;
-      }
-      if (event.type == SDL_MOUSEBUTTONDOWN) {
-        if (event.button.button == SDL_BUTTON_LEFT) {
-          left_click_on_ = true;
-        }
-        if (event.button.button == SDL_BUTTON_RIGHT) {
-          right_click_on_ = true;
-        }
-      } else if (event.type == SDL_MOUSEBUTTONUP) {
-        if (event.button.button == SDL_BUTTON_LEFT) {
-          left_click_on_ = false;
-        }
-        if (event.button.button == SDL_BUTTON_RIGHT) {
-          right_click_on_ = false;
-        }
-      }
-    }
-  }
-
-  long long getDelay() { return delay_; }
-  bool getPauseState() { return pause_; }
-  bool getRunningState() { return running_; }
-  bool getMouseLeftClick() { return left_click_on_; }
-  bool getMouseRightClick() { return right_click_on_; }
-  std::pair<int, int> getMousePosition() { return std::pair(mouse_pos_x_, mouse_pos_y_); }
-
- private:
-  SDL_Event event;
-  bool running_ = true;
-  bool pause_ = false;
-  bool restart_ = false;
-  const long long delay_increment_ = 50;
-  long long delay_ = 200;
-  int mouse_pos_x_ = 0;
-  int mouse_pos_y_ = 0;
-  bool left_click_on_ = false;
-  bool right_click_on_ = false;
-};
 
 class Cell {
  public:

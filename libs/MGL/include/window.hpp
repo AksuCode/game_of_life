@@ -1,5 +1,5 @@
-#ifndef MGL_WINDOW_H
-#define MGL_WINDOW_H
+#ifndef MGL_WINDOW_HPP
+#define MGL_WINDOW_HPP
 
 #include <vector>
 #include <iostream>

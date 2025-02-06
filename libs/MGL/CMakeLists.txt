@@ -25,19 +25,3 @@ add_library(MGL STATIC ${SOURCES})
 
 # Specify the output name of the library
 set_target_properties(MGL PROPERTIES OUTPUT_NAME "MGL")
-
-# Add CMake modules
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/sdl2")
-
-# Add SDL2 library
-find_package(SDL2 REQUIRED)
-
-# Platform-specific configurations
-if (WIN32)
-    # Additional configuration for Windows
-    ### NOT YET IMPLEMENTED ###
-elseif (UNIX)
-    # Link SDL2 libraries and include directories
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIBRARIES} pthread)
-    target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_INCLUDE_DIRS})
-endif()
