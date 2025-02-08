@@ -52,16 +52,19 @@ void GridOfLife::killAllCells() {
 void GridOfLife::setSpecificCellAlive(int x_pos, int y_pos) { grid_[y_pos][x_pos].setCellAlive(); }
 void GridOfLife::setSpecificCellDead(int x_pos, int y_pos) { grid_[y_pos][x_pos].setCellDead(); }
 
-void GridOfLife::iterateGridOfLife() {
+void GridOfLife::iterateGridOfLife() {      // NEEDS OPTIMIZATION
     std::vector<std::pair<int, int>> to_be_alive_cells;
     std::vector<std::pair<int, int>> to_be_dead_cells;
-    for (int j = 1; j < heigth_ - 1; j++) {
-        for (int i = 1; i < width_ - 1; i++) {
+    for (int j = 0; j < heigth_; j++) {
+        for (int i = 0; i < width_; i++) {
         bool cell_is_alive = grid_[j][i].cellIsAlive();
         int alive_neigbors_count = 0;
         for (int k = j - 1; k <= j + 1; k++) {
             for (int l = i - 1; l <= i + 1; l++) {
             if (k == j && l == i) {
+                continue;
+            }
+            if (k < 0 || k >= heigth_ || l < 0 || k >= width_) {
                 continue;
             }
             alive_neigbors_count += grid_[k][l].cellIsAlive();
@@ -82,10 +85,6 @@ void GridOfLife::iterateGridOfLife() {
         }
         }
     }
-
-    /// TODO ///
-    // BORDERS NEED TO BE CHECKED///
-    /// ATM JUST IGNORED ///
 
     setAliveCells(to_be_alive_cells);
     setDeadCells(to_be_dead_cells);
