@@ -49,35 +49,6 @@ void renderFrame(std::vector<std::pair<int, int>> &alive_cells) {
   window.updateWindow();
 }
 
-/*
-static void mainloop() {
-  std::chrono::steady_clock::time_point tp1 = std::chrono::steady_clock::now();
-
-  // Iterate game of life
-  grid.iterateGridOfLife();
-
-  // Handle frame rendering and events
-  std::chrono::steady_clock::time_point tp2 = std::chrono::steady_clock::now();
-  long long elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count();
-  const long long delay_ms = state.getDelay();
-  while (delay_ms - elapsed_ms > 0 || state.getPauseState()) {
-    std::vector<std::pair<int, int>> alive_cells = grid.getAliveCells();
-    renderFrame(alive_cells);
-    state.pollUserInput();
-    if (state.getMouseLeftClick()) {
-      auto [x_pos, y_pos] = state.getMousePosition();
-      grid.setSpecificCellAlive(x_pos / 10, y_pos / 10);
-    } else if (state.getMouseRightClick()) {
-      auto [x_pos, y_pos] = state.getMousePosition();
-      grid.setSpecificCellDead(x_pos / 10, y_pos / 10);
-    }
-
-    tp2 = std::chrono::steady_clock::now();
-    elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count();
-  }
-}
-*/
-
 static void mainloop() {
   std::chrono::steady_clock::time_point current_tp = std::chrono::steady_clock::now();
   long long elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(current_tp - gol_iteration_tp).count();

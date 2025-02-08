@@ -66,7 +66,6 @@ class Window {
   SDL_Renderer *renderer;
   int window_width;
   int window_heigth;
-  std::vector<SDL_Rect> rectangles;
 
   /*
    * Creates a window. Terminates program on failure.

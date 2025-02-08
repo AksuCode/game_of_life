@@ -1,6 +1,6 @@
 #include "../include/gamestatehandler.hpp"
 
-GameStateHandler::GameStateHandler() : running_(true), pause_(false), restart_(false), delay_increment_(50), delay_(200), mouse_pos_x_(0), mouse_pos_y_(0), left_click_on_(false), right_click_on_(false) {}
+GameStateHandler::GameStateHandler() : running_(true), pause_(true), restart_(false), delay_increment_(50), delay_(200), mouse_pos_x_(0), mouse_pos_y_(0), left_click_on_(false), right_click_on_(false) {}
 
   void GameStateHandler::pollUserInput() {
     while (SDL_PollEvent(&event)) {

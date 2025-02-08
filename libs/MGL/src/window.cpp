@@ -61,12 +61,11 @@ int Window::clearWindow(Uint8 r, Uint8 g, Uint8 b) {
 
 int Window::drawRectangle(Uint8 r, Uint8 g, Uint8 b, int x, int y, int w, int h) {
   SDL_Rect new_rectangle = {x, y, w, h};
-  rectangles.push_back(new_rectangle);
   if (SDL_SetRenderDrawColor(renderer, r, g, b, 255) < 0) {
     SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Renderer color setting error: %s\n", SDL_GetError());
     return -1;
   }
-  if (SDL_RenderFillRect(renderer, &rectangles.back()) < 0) {
+  if (SDL_RenderFillRect(renderer, &new_rectangle) < 0) {
     SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Renderer fill error: %s\n", SDL_GetError());
     return -1;
   }
@@ -77,7 +76,6 @@ int Window::drawRectangle(Uint8 r, Uint8 g, Uint8 b, int x, int y, int w, int h)
 
 void Window::updateWindow() {
   SDL_RenderPresent(renderer);
-  rectangles.clear();
 }
 
 void Window::createRenderer() {

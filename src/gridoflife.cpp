@@ -57,32 +57,32 @@ void GridOfLife::iterateGridOfLife() {      // NEEDS OPTIMIZATION
     std::vector<std::pair<int, int>> to_be_dead_cells;
     for (int j = 0; j < heigth_; j++) {
         for (int i = 0; i < width_; i++) {
-        bool cell_is_alive = grid_[j][i].cellIsAlive();
-        int alive_neigbors_count = 0;
-        for (int k = j - 1; k <= j + 1; k++) {
-            for (int l = i - 1; l <= i + 1; l++) {
-            if (k == j && l == i) {
+            bool cell_is_alive = grid_[j][i].cellIsAlive();
+            int alive_neigbors_count = 0;
+            for (int k = j - 1; k <= j + 1; k++) {
+                for (int l = i - 1; l <= i + 1; l++) {
+                    if (k == j && l == i) {
+                        continue;
+                    }
+                    if (k < 0 || k >= heigth_ || l < 0 || l >= width_) {
+                        continue;
+                    }
+                    alive_neigbors_count += grid_[k][l].cellIsAlive();
+                }
+            }
+            if (!cell_is_alive) {
+                if (3 == alive_neigbors_count) {
+                    to_be_alive_cells.push_back(std::pair(i, j));
+                }
                 continue;
             }
-            if (k < 0 || k >= heigth_ || l < 0 || k >= width_) {
-                continue;
+            if (alive_neigbors_count < 2) {
+                to_be_dead_cells.push_back(std::pair(i, j));
+            } else if ((2 == alive_neigbors_count || 3 == alive_neigbors_count)) {
+                to_be_alive_cells.push_back(std::pair(i, j));
+            } else if (3 < alive_neigbors_count) {
+                to_be_dead_cells.push_back(std::pair(i, j));
             }
-            alive_neigbors_count += grid_[k][l].cellIsAlive();
-            }
-        }
-        if (!cell_is_alive) {
-            if (3 == alive_neigbors_count) {
-            to_be_alive_cells.push_back(std::pair(i, j));
-            }
-            continue;
-        }
-        if (alive_neigbors_count < 2) {
-            to_be_dead_cells.push_back(std::pair(i, j));
-        } else if ((2 == alive_neigbors_count || 3 == alive_neigbors_count)) {
-            to_be_alive_cells.push_back(std::pair(i, j));
-        } else if (3 < alive_neigbors_count) {
-            to_be_dead_cells.push_back(std::pair(i, j));
-        }
         }
     }
 
