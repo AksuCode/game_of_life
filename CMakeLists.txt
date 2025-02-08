@@ -1,5 +1,5 @@
 # Project name
-project(wasm_test)
+project(game_of_life)
 
 # Set cmake minimum version
 cmake_minimum_required(VERSION 3.15)

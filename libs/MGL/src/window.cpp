@@ -1,6 +1,6 @@
 #include "../include/window.hpp"
 
-Window::Window(const char *window_title, SDL_LogOutputFunction logOutputFunction): window(nullptr), renderer(nullptr), window_width(0), window_heigth(0) {
+Window::Window(const char *window_title, SDL_LogOutputFunction logOutputFunction): window(nullptr), renderer(nullptr), window_width_(0), window_heigth_(0) {
   // Initialize SDL library
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Video initialization error: %s\n", SDL_GetError());
@@ -20,9 +20,9 @@ Window::~Window() {
   SDL_Quit();
 }
 
-int Window::getWindowWidth() { return window_width; }
+int Window::getWindowWidth() { return window_width_; }
 
-int Window::getWindowHeigth() { return window_heigth; }
+int Window::getWindowHeigth() { return window_heigth_; }
 
 int Window::createOrUpdateWindow(bool full_screen, int window_width, int window_heigth) {
   if (window == nullptr) {
@@ -41,7 +41,7 @@ int Window::createOrUpdateWindow(bool full_screen, int window_width, int window_
       SDL_SetWindowSize(window, window_width, window_heigth);
     }
   }
-  SDL_GetWindowSize(window, &window_width, &window_heigth);
+  SDL_GetWindowSize(window, &window_width_, &window_heigth_);
 
   return 0;
 }

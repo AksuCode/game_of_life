@@ -64,8 +64,8 @@ class Window {
   const char *window_title;
   SDL_Window *window;
   SDL_Renderer *renderer;
-  int window_width;
-  int window_heigth;
+  int window_width_;
+  int window_heigth_;
 
   /*
    * Creates a window. Terminates program on failure.
