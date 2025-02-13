@@ -76,7 +76,7 @@ static void mainloop() {
     int cell_x_pos = x_pos / cell_width;
     int cell_y_pos = y_pos / cell_heigth;
     if (cell_x_pos < grid->getGridWidth() && cell_y_pos < grid->getGridHeigth()) {
-      grid->setSpecificCellAlive(x_pos / cell_width, y_pos / cell_heigth);
+      grid->setSpecificCellDead(x_pos / cell_width, y_pos / cell_heigth);
     }
   }
 }
